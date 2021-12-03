@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatSnackBar} from "@angular/material";
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {MatSnackBar} from '@angular/material/snack-bar'; 
 import {Route} from "../vdma_classes/Route";
 import {Order} from "../vdma_classes/Order";
 import * as Paho from "paho-mqtt";

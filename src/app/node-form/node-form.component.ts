@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { GraphMapComponent} from "../graph-map/graph-map.component";
 import { Node } from "../vdma_classes/Node";
 import {Action} from "../vdma_classes/Action";
-import {MatDialog, MatDialogConfig} from "@angular/material";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {ActionFormComponent} from "../action-form/action-form.component";
 import {SettingsFormComponent} from "../settings-form/settings-form.component";
 

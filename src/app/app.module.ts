@@ -10,22 +10,21 @@ import { OrderCommComponent } from './order-comm/order-comm.component';
 
 // Material Design Modules
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {
-  MatDialogModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatButtonModule,
-  MatToolbarModule, MatIconModule,
-  MatCheckboxModule,
-  MatCardModule,
-  MatListModule,
-  MatSelectModule,
-  MatSnackBarModule,
-  MatTableModule,
-  MatExpansionModule,
-  MatDividerModule,
-  MatOptionModule
-} from "@angular/material";
+import {MatDialogModule} from "@angular/material/dialog";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatCardModule} from "@angular/material/card";
+import {MatListModule} from "@angular/material/list";
+import {MatSelectModule} from "@angular/material/select";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatTableModule,} from "@angular/material/table";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatDividerModule} from "@angular/material/divider";
+
 import { SettingsFormComponent } from './settings-form/settings-form.component';
 import { ActionFormComponent } from './action-form/action-form.component';
 import { RouteEditorComponent } from './route-editor/route-editor.component';
@@ -64,8 +63,7 @@ import { EdgeFormComponent } from './edge-form/edge-form.component';
     MatSnackBarModule,
     MatTableModule,
     MatExpansionModule,
-    MatDividerModule,
-    MatOptionModule
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent],

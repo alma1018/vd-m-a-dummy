@@ -1,10 +1,12 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Route} from "../vdma_classes/Route";
 import {OrderCommComponent, orderCommData} from "../order-comm/order-comm.component";
-import {MatDialog, MatDialogConfig, MatSnackBar} from "@angular/material";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {MatSnackBar} from '@angular/material/snack-bar'; 
 import {RouteEditorComponent} from "../route-editor/route-editor.component";
 import {FTF} from "../vdma_classes/FTF";
 import {routeEditorDialogInterface} from "../route-editor/route-editor.component";
+import {Paho} from 'paho-mqtt';
 
 
 @Component({

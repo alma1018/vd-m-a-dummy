@@ -7,7 +7,8 @@ import { FTF } from "../vdma_classes/FTF";
 import * as Paho from "paho-mqtt";
 import {SettingsFormComponent} from "../settings-form/settings-form.component";
 import {FtfFormComponent} from "../ftf-form/ftf-form.component";
-import {MatDialog, MatDialogConfig, MatSnackBar} from "@angular/material";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {MatSnackBar} from '@angular/material/snack-bar'; 
 import {EdgeFormComponent} from '../edge-form/edge-form.component';
 import Message = Paho.Message;
 
@@ -106,7 +107,7 @@ export class GraphMapComponent implements OnInit {
   ngOnInit() {
     // Hier die App starten!
     this.initSvg();
-    this.drawCircles();
+    //this.drawCircles(event);
     this.stage.on('mouseup', this.addNodes.bind(this));
     d3.select(window)
       .on('keydown', this.keyDown.bind(this))
@@ -321,7 +322,7 @@ export class GraphMapComponent implements OnInit {
 
   }
 
-  drawCircles() {
+  drawCircles(event) {
     let module = this;
     let circle = this.circleGroup.selectAll('g').data(this.nodes, (d: Node) => d.nodeID);
 
@@ -405,7 +406,7 @@ export class GraphMapComponent implements OnInit {
       .attr('transform', (d) => {return 'rotate(' + (-d.position.theta * (180 / 3.1415926)) + ')';})
       .attr('style', 'stroke-width: 4px;stroke: #000000;');
 
-    g.attr('transform', function(d) {
+    g.attr('transform', function(event, d) {
         return "translate(" + module.xScale(d.position.x) + "," + module.yScale(d.position.y) + ")";
       })
       .on('mousedown', (d) => {
@@ -415,7 +416,7 @@ export class GraphMapComponent implements OnInit {
       })
       .on('mouseup', (d) => {
         this.svgActive = true;
-        d3.event.stopPropagation();
+        event.stopPropagation();
         this.buttonUpNode = d;
         if (this.buttonDownNode === this.buttonUpNode) {
           this.selectedNode = d;
@@ -423,13 +424,13 @@ export class GraphMapComponent implements OnInit {
 
         }
         else {
-          this.addEdge(this.buttonDownNode, this.buttonUpNode);
+          this.addEdge(event, this.buttonDownNode, this.buttonUpNode);
         }
 
         this.buttonUpNode = null;
         this.buttonDownNode = null;
-        this.drawCircles();
-        this.drawEdges();
+        this.drawCircles(event);
+        this.drawEdges(event);
       });
 
     this.circleGroup.selectAll('g')
@@ -441,16 +442,16 @@ export class GraphMapComponent implements OnInit {
         .on("drag", this.dragFunc.bind(this)));
   }
 
-  addNodes() {
+  addNodes(event) {
     //@ts-ignore
     this.svgActive = true;
     if (this.selectedNode !== null) {
       this.selectedNode = null;
-      this.drawCircles();
-      this.drawEdges();
+      this.drawCircles(event);
+      this.drawEdges(event);
       return;
     }
-    let coords = d3.mouse(document.getElementById('stage'));
+    let coords = d3.pointer(event)(document.getElementById('stage'));
     const node = new Node();
     node.position.x = this.xScale.invert(coords[0]);
     node.position.y = this.yScale.invert(coords[1]);
@@ -476,28 +477,28 @@ export class GraphMapComponent implements OnInit {
 
     // automatically add edge between nodes, but only if they are on the same route!
     if (this.currentRoute.nodes.length > 1) {
-      this.addEdge(
+      this.addEdge(event,
         this.currentRoute.nodes[this.currentRoute.nodes.length - 2],
         this.currentRoute.nodes[this.currentRoute.nodes.length - 1]
       );
     }
 
-    this.drawCircles();
-    this.drawEdges();
+    this.drawCircles(event);
+    this.drawEdges(event);
     console.log(this.nodes);
     console.log(this.currentRoute);
   }
 
-  dragFunc(d) {
-    d.position.x = this.xScale.invert(d3.event.x);
-    d.position.y = this.yScale.invert(d3.event.y);
+  dragFunc(event, d) {
+    d.position.x = this.xScale.invert(event.x);
+    d.position.y = this.yScale.invert(event.y);
 
-    this.drawCircles();
-    this.drawEdges();
+    this.drawCircles(event);
+    this.drawEdges(event);
     //d3.select(this).attr("cx", d.x = d3.event.x).attr("cy", d.y = d3.event.y);
   }
 
-  drawEdges() {
+  drawEdges(event) {
     let module = this;
     let edge = this.edgeGroup.selectAll('path').data(this.edges, (d) => d.edgeID);
     // Remove old edges
@@ -556,7 +557,7 @@ export class GraphMapComponent implements OnInit {
       return `M${sourceX},${sourceY}L${targetX},${targetY}`;
     })
     .on('mouseup', (e: Edge) => {
-      d3.event.stopPropagation();
+      event.stopPropagation();
       if (this.lastKeyDown === 17) {
         // Control key held!
         // maybe add trajectory config mode?
@@ -574,7 +575,7 @@ export class GraphMapComponent implements OnInit {
     });
   }
 
-  addEdge(source: Node, target: Node) {
+  addEdge(event, source: Node, target: Node) {
     if (source === target) return;
     if (source === null || target === null) return;
     if (source.routeID != target.routeID) return;
@@ -597,14 +598,14 @@ export class GraphMapComponent implements OnInit {
       this.currentRoute.edges.push(edge);
       console.log('Added edge. Source:' + source.nodeID + ' Target:' + target.nodeID);
       console.log(this.edges);
-      this.drawEdges();
+      this.drawEdges(event);
 
       // adjust theta of source node to point in target direction
       let xDiff = target.position.x - source.position.x;
       let yDiff = target.position.y - source.position.y;
       let theta =  Math.atan2(yDiff, xDiff);
       source.position.theta = theta;
-      this.drawCircles();
+      this.drawCircles(event);
     }
   }
 
@@ -659,11 +660,11 @@ export class GraphMapComponent implements OnInit {
     console.log('New route ID: ' + this.currentRoute.routeID);
   }
 
-  keyDown() {
+  keyDown(event) {
     let module = this;
 
     if (this.lastKeyDown !== -1) return;
-    this.lastKeyDown = d3.event.keyCode;
+    this.lastKeyDown = event.keyCode;
 
     // entf oder backspace
     if (this.lastKeyDown === 8 || this.lastKeyDown === 46) {
@@ -685,16 +686,16 @@ export class GraphMapComponent implements OnInit {
           this.currentRoute.nodes.splice(this.currentRoute.nodes.indexOf(this.selectedNode), 1);
         }
         this.selectedNode = null;
-        this.drawCircles();
-        this.drawEdges();
+        this.drawCircles(event);
+        this.drawEdges(event);
       }
     }
   }
 
-  keyUp() {
+  keyUp(event) {
     this.lastKeyDown = -1;
 
-    let key = d3.event.keyCode;
+    let key = event.keyCode;
 
   }
 
@@ -861,11 +862,11 @@ export class GraphMapComponent implements OnInit {
 
         return 'translate(' + this.xScale(d.x) + ',' + this.yScale(d.y) + ')';
       })
-      .on('mouseup', (d) => {
-        d3.event.stopPropagation();
+      .on('mouseup', (event, d) => {
+        event.stopPropagation();
         if (this.lastKeyDown === 17) {
           // Control key held!
-          module.addNodeOnFTFPosition(d);
+          module.addNodeOnFTFPosition(event, d);
           return;
         }
         const dialogConfig = new MatDialogConfig();
@@ -984,7 +985,7 @@ export class GraphMapComponent implements OnInit {
     }
   }
 
-  addNodeOnFTFPosition(ftf: FTF) {
+  addNodeOnFTFPosition(event, ftf: FTF) {
     const node = new Node();
     node.position.x = ftf.x;
     node.position.y = ftf.y;
@@ -1011,14 +1012,14 @@ export class GraphMapComponent implements OnInit {
 
     // automatically add edge between nodes, but only if they are on the same route!
     if (this.currentRoute.nodes.length > 1) {
-      this.addEdge(
+      this.addEdge(event,
         this.currentRoute.nodes[this.currentRoute.nodes.length - 2],
         this.currentRoute.nodes[this.currentRoute.nodes.length - 1]
       );
     }
 
-    this.drawCircles();
-    this.drawEdges();
+    this.drawCircles(event);
+    this.drawEdges(event);
   }
 
   drawCoordinateSystem() {

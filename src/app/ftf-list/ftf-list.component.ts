@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {FTF} from "../vdma_classes/FTF";
-import {MatSnackBar} from "@angular/material";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-ftf-list',

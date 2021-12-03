@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Edge } from '../vdma_classes/Edge';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import {Action} from '../vdma_classes/Action'
 import {ActionFormComponent} from '../action-form/action-form.component'
 

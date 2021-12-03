@@ -1,7 +1,7 @@
+import {Paho} from 'paho-mqtt';
 import Message = Paho.MQTT.Message;
 import { Route } from "./Route";
 import { Position, Velocity, systemState } from "./systemState";
-import { NullAstVisitor } from "@angular/compiler";
 
 class nodeState {
   nodeID: string;
