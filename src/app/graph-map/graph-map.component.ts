@@ -406,7 +406,7 @@ export class GraphMapComponent implements OnInit {
       .attr('transform', (d) => {return 'rotate(' + (-d.position.theta * (180 / 3.1415926)) + ')';})
       .attr('style', 'stroke-width: 4px;stroke: #000000;');
 
-    g.attr('transform', function(event, d) {
+    g.attr('transform', function(d) {
         return "translate(" + module.xScale(d.position.x) + "," + module.yScale(d.position.y) + ")";
       })
       .on('mousedown', (d) => {
@@ -446,12 +446,15 @@ export class GraphMapComponent implements OnInit {
     //@ts-ignore
     this.svgActive = true;
     if (this.selectedNode !== null) {
+      console.log("Node selected")
       this.selectedNode = null;
       this.drawCircles(event);
       this.drawEdges(event);
       return;
     }
-    let coords = d3.pointer(event)(document.getElementById('stage'));
+    console.log("here!")
+    let coords = d3.pointer(event, document.getElementById('stage'));
+    console.log(coords)
     const node = new Node();
     node.position.x = this.xScale.invert(coords[0]);
     node.position.y = this.yScale.invert(coords[1]);
