@@ -449,7 +449,9 @@ export class GraphMapComponent implements OnInit {
       console.log("Node selected")
       this.selectedNode = null;
       this.drawCircles(event);
+      console.log("I have drawn circles")
       this.drawEdges(event);
+      console.log("I have drawn edges")
       return;
     }
     console.log("here!")
@@ -493,8 +495,10 @@ export class GraphMapComponent implements OnInit {
   }
 
   dragFunc(event, d) {
-    d.position.x = this.xScale.invert(event.x);
-    d.position.y = this.yScale.invert(event.y);
+    let coords = d3.pointer(event, document.getElementById('stage'))
+    console.log("here in drag func")
+    d.position.x = this.xScale.invert(coords[0]);
+    d.position.y = this.yScale.invert(coords[1]);
 
     this.drawCircles(event);
     this.drawEdges(event);
