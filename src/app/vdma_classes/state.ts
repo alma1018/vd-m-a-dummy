@@ -58,7 +58,7 @@ import { NodePosition } from "./systemState";
      */
     information?: Information[];
     /**
-     * nodeID of last reached node or, if AGV is currently on a node, current node (e. g.
+     * nodeId of last reached node or, if AGV is currently on a node, current node (e. g.
      * â€œnode7â€). Empty string (â€œâ€) if no lastNodeId is available.
      */
     lastNodeId: string;

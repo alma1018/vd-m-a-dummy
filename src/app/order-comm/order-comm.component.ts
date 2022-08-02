@@ -27,7 +27,7 @@ export class OrderCommComponent implements OnInit {
 
   version = '0.1.0';
   static sequenceID = 0;
-  static orderID = 0;
+  static orderId = 0;
   constructor(public dialogRef: MatDialogRef<OrderCommComponent>,
               @Inject(MAT_DIALOG_DATA) public orderInterface: orderCommData,
               private snackBar: MatSnackBar) { }
@@ -52,8 +52,8 @@ export class OrderCommComponent implements OnInit {
     message.destinationName = topic;
     this.orderInterface.mqtt.send(message);
     OrderCommComponent.sequenceID++;
-    this.snackBar.open('Auftrag mit orderID ' + OrderCommComponent.orderID + ' gesendet!', undefined, {duration: 3000});
-    OrderCommComponent.orderID++;
+    this.snackBar.open('Auftrag mit orderId ' + OrderCommComponent.orderId + ' gesendet!', undefined, {duration: 3000});
+    OrderCommComponent.orderId++;
     this.dialogRef.close();
 
   }

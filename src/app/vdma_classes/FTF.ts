@@ -5,14 +5,14 @@ import { NodePosition } from "./systemState";
 import { State } from "./state";
 
 class nodeState {
-  nodeID: string;
+  nodeId: string;
   nodeDescription?: string;
   position?: NodePosition;
   released: boolean;
 }
 
 class edgeState {
-  edgeID: string;
+  edgeId: string;
   edgeDescription?: string;
   released: boolean;
 }

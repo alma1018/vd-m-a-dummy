@@ -27,32 +27,32 @@ export class Route {
     }
   }
 
-  getNodeByID(nodeID) {
+  getNodeByID(nodeId) {
     return this.nodes.filter((node) => {
-      return node.nodeId === nodeID;
+      return node.nodeId === nodeId;
     })[0];
   }
 
-  getEdgeByID(edgeID) {
+  getEdgeByID(edgeId) {
     return this.edges.filter((edge) => {
-      return edge.edgeId === edgeID;
+      return edge.edgeId === edgeId;
     })[0];
   }
 
-  getStartNodeByEdgeID(edgeID) {
-    let edge = this.getEdgeByID(edgeID);
+  getStartNodeByEdgeID(edgeId) {
+    let edge = this.getEdgeByID(edgeId);
     let node = this.getNodeByID(edge.startNodeId);
     return node;
   }
 
-  getEndNodeByEdgeID(edgeID) {
-    let edge = this.getEdgeByID(edgeID);
+  getEndNodeByEdgeID(edgeId) {
+    let edge = this.getEdgeByID(edgeId);
     let node = this.getNodeByID(edge.endNodeId);
     return node;
   }
 
-  getEdgeByStartNodeID(nodeID) {
-    return this.edges.find((e: Edge) => { return e.startNodeId === nodeID});
+  getEdgeByStartNodeID(nodeId) {
+    return this.edges.find((e: Edge) => { return e.startNodeId === nodeId});
   }
 
   setFtfBaseTopic(ftf: FTF) {
