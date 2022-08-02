@@ -17,15 +17,16 @@ export class Node {
      */
     released: boolean;
     /**
+     * Defines the position on a map in world coordinates. Each floor has its own map. Precision
+     * is up to the specific implementation
+     */
+    nodePosition?: NodePosition;     // Changed to none optional
+    /**
      * Array of actions that are to be executed on the node. Their sequence in the list governs
      * their sequence of execution.
      */
     actions: Action[];
-    /**
-     * Defines the position on a map in world coordinates. Each floor has its own map. Precision
-     * is up to the specific implementation
-     */
-    nodePosition: NodePosition;     // Changed to none optional
+   
     
     allowedDeviation: any;
 
