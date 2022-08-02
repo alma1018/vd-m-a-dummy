@@ -1,6 +1,6 @@
 # VdmaHmi
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.2.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.0.
 
 ## Development server
 
