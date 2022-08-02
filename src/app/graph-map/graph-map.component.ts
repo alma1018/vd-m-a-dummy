@@ -529,7 +529,7 @@ export class GraphMapComponent implements OnInit {
         const targetY = this.yScale(d.endNodeObject.nodePosition.y) - (targetPadding * normY);
         const deltaXreal = d.endNodeObject.nodePosition.x - d.startNodeObject.nodePosition.x;
         const deltaYreal = d.endNodeObject.nodePosition.y - d.startNodeObject.nodePosition.y;
-        d.distance = Math.sqrt(deltaXreal * deltaXreal + deltaYreal * deltaYreal);
+        d.length = Math.sqrt(deltaXreal * deltaXreal + deltaYreal * deltaYreal);
         return `M${sourceX},${sourceY}L${targetX},${targetY}`;
       })
       .style('stroke-opacity', (d: Edge) => {
@@ -560,7 +560,7 @@ export class GraphMapComponent implements OnInit {
       const targetY = this.yScale(d.endNodeObject.nodePosition.y) - (targetPadding * normY);
       const deltaXreal = d.endNodeObject.nodePosition.x - d.startNodeObject.nodePosition.x;
       const deltaYreal = d.endNodeObject.nodePosition.y - d.startNodeObject.nodePosition.y;
-      d.distance = Math.sqrt(deltaXreal * deltaXreal + deltaYreal * deltaYreal);
+      d.length = Math.sqrt(deltaXreal * deltaXreal + deltaYreal * deltaYreal);
       return `M${sourceX},${sourceY}L${targetX},${targetY}`;
     })
     .on('mouseup', (e: Edge) => {

@@ -14,7 +14,7 @@
      */
   
 
-    blockingType: BlockingType; //TODO: not optinal in V2.0.0  
+    blockingType?: BlockingType; //TODO: not optinal in V2.0.0  
     /**
      * Array of actionParameter-objects for the indicated action e. g. deviceId, loadId,
      * external Triggers.
