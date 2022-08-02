@@ -1,10 +1,13 @@
 
  export class Action {
-    actionDescription?: string;
+    actionType: string;
     /**
      * ID to distinguish between multiple actions with the same name on the same node.
      */
     actionId: string;
+
+    actionDescription?: string;
+  
     /**
      * Array of actionParameter-objects for the indicated action e. g. deviceId, loadId,
      * external Triggers.
@@ -14,9 +17,9 @@
      * Enum of actions as described in the first column of "Actions and Parameters"
      * Identifies the function of the action.
      */
-    actionType: string;
+  
 
-    blockingType?: BlockingType;
+    blockingType: BlockingType;
     
 
 }

@@ -60,6 +60,8 @@ export class Edge {
      * Sets direction at junctions for line-guided vehicles, to be defined initially
      * (vehicle-individual). Can be descriptive (left, right, middle) or a frequency.
      */
+    orientationType?: string; // todo add enumaration !!!
+
     direction?: string;
     /**
      * If true, rotation is allowed on the edge.
@@ -75,15 +77,16 @@ export class Edge {
      */
     trajectory?: Trajectory;
     /**
-     * Array of action objects with detailed information.
-     */
-    actions: Action[];
-    /**
      * Distance of the path from startNode to endNode in meters. This value is used by
      * line-guided AGVs to decrease their speed before reaching a stop position.
      */
-    distance?: number;
-
+    length?: number;
+    /**
+     * Array of action objects with detailed information.
+     */
+    actions: Action[];
+   
+//********************************************************************************************************************************* */
     // from old script
     static count = 0;
     replaceBase?: boolean;
@@ -117,11 +120,12 @@ export class Edge {
           "maxSpeed":this.maxSpeed,
           "maxHeight":this.maxHeight,
           "orientation":this.orientation,
+          "orientationType":this.orientationType,
           "direction":this.direction,
           "rotationAllowed":this.rotationAllowed,
           "maxRotationSpeed":this.maxRotationSpeed,
           "trajectory":this.trajectory,
-          "distance":this.distance,
+          "length":this.length,
           "actions":this.actions
         }
       }

@@ -11,7 +11,7 @@
     /**
      * The degree of the NURBS.
      */
-    degree: number;
+    degree?: number;
     /**
      * Sequence of parameter values that determine where and how the control points affect the
      * NURBS curve. knotVector has size of number of control points + degree + 1
@@ -20,17 +20,17 @@
 }
 
 export class ControlPoint {
-    /**
-     * Orientation of the AGV on this position of the curve. The orientation is in world
-     * coordinates.
-     * When not defined the orientation of the AGV will be tangential to the curve.
-     */
-    orientation?: number;
+    // /**
+    //  * Orientation of the AGV on this position of the curve. The orientation is in world
+    //  * coordinates.
+    //  * When not defined the orientation of the AGV will be tangential to the curve.
+    //  Removed in V2.0.0*/
+    // orientation?: number;
     /**
      * The weight with which this control point pulls no the curve.
      * When not defined, the default will be 1.0.
      */
-    weight: number;
+    weight?: number;
     x:      number;
     y:      number;
 }
@@ -54,7 +54,7 @@ export class ControlPoint {
      * If > 0: allowed deviation-radius in meters. If the AGV passes a node within the
      * deviation-radius, the node is considered to have been traversed.
      */
-    allowedDeviationXy?: number;
+    allowedDeviationXY?: number;
     /**
      * Verbose description of the Map
      */
