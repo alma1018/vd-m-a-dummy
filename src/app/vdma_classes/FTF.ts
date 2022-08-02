@@ -1,12 +1,13 @@
 import {Paho} from 'paho-mqtt';
 import Message = Paho.MQTT.Message;
 import { Route } from "./Route";
-import { Position, Velocity, systemState } from "./systemState";
+import { NodePosition } from "./systemState";
+import { State } from "./state";
 
 class nodeState {
   nodeID: string;
   nodeDescription?: string;
-  position?: Position;
+  position?: NodePosition;
   released: boolean;
 }
 
@@ -32,7 +33,7 @@ export class FTF {
   orderQueue: Route[] = [];
   currentOrder: Route = null;
   busy: boolean;
-  systemState: systemState;
+  systemState: State;
 
   constructor() {
     this.id = FTF.count;

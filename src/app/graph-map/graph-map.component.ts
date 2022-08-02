@@ -72,19 +72,19 @@ export class GraphMapComponent implements OnInit {
 
 
   // MapStuff
-  mapWidthInPixels=701;
-  mapHeightInPixels=489;
-  map_origin = [-17.5250000, -12.2250000];
-  mapWidthInMeters = 35.05;
-  mapHeightInMeters = 24.45;
-  mapMetersPerPixel = 0.05;
+  mapWidthInPixels=1664;
+  mapHeightInPixels=1312;
+  map_origin = [-20.01, -20.01];
+  mapWidthInMeters = 49.92;
+  mapHeightInMeters = 39.36;
+  mapMetersPerPixel = 0.03;
   mapAvailableWidth: number;
   mapAvailableHeight: number;
   mapSizingFactor: number;
   mapDisplayWidth: number;
   mapDisplayHeight: number;
-  mapXoffset = 0.0;
-  mapYoffset = 0.0;
+  mapXoffset = -4.9583;
+  mapYoffset = 0.9792;
   xScale = d3.scaleLinear()
     .domain([this.map_origin[0], -this.map_origin[0] ])
     .range([0,this.mapWidthInPixels]);
@@ -324,7 +324,7 @@ export class GraphMapComponent implements OnInit {
 
   drawCircles(event) {
     let module = this;
-    let circle = this.circleGroup.selectAll('g').data(this.nodes, (d: Node) => d.nodeID);
+    let circle = this.circleGroup.selectAll('g').data(this.nodes, (d: Node) => d.nodeId);
 
 
     // update existing circles
@@ -339,7 +339,7 @@ export class GraphMapComponent implements OnInit {
 
     // update position
     circle.attr('transform', function(d) {
-      return "translate(" + module.xScale(d.position.x) + "," + module.yScale(d.position.y) + ")";
+      return "translate(" + module.xScale(d.nodePosition.x) + "," + module.yScale(d.nodePosition.y) + ")";
     });
 
     // update names
@@ -352,7 +352,7 @@ export class GraphMapComponent implements OnInit {
       });
 
     circle.selectAll('line')
-      .attr('transform', (d) => {return 'rotate(' + (-d.position.theta * (180 / 3.1415926)) + ')';});
+      .attr('transform', (d) => {return 'rotate(' + (-d.nodePosition.theta * (180 / 3.1415926)) + ')';});
 
     circle.selectAll('.material-icons')
       .text((d: Node) => {
@@ -403,11 +403,11 @@ export class GraphMapComponent implements OnInit {
       .attr('y1', 0)
       .attr('x2', 16)
       .attr('y2', 0)
-      .attr('transform', (d) => {return 'rotate(' + (-d.position.theta * (180 / 3.1415926)) + ')';})
+      .attr('transform', (d) => {return 'rotate(' + (-d.nodePosition.theta * (180 / 3.1415926)) + ')';})
       .attr('style', 'stroke-width: 4px;stroke: #000000;');
 
     g.attr('transform', function(d) {
-        return "translate(" + module.xScale(d.position.x) + "," + module.yScale(d.position.y) + ")";
+        return "translate(" + module.xScale(d.nodePosition.x) + "," + module.yScale(d.nodePosition.y) + ")";
       })
       .on('mousedown', (d) => {
         this.svgActive = true;
@@ -458,8 +458,8 @@ export class GraphMapComponent implements OnInit {
     let coords = d3.pointer(event, document.getElementById('stage'));
     console.log(coords)
     const node = new Node();
-    node.position.x = this.xScale.invert(coords[0]);
-    node.position.y = this.yScale.invert(coords[1]);
+    node.nodePosition.x = this.xScale.invert(coords[0]);
+    node.nodePosition.y = this.yScale.invert(coords[1]);
     node.routeID = this.currentRoute.routeID;
 
     // check if route already has a start
@@ -507,15 +507,15 @@ export class GraphMapComponent implements OnInit {
 
   drawEdges(event) {
     let module = this;
-    let edge = this.edgeGroup.selectAll('path').data(this.edges, (d) => d.edgeID);
+    let edge = this.edgeGroup.selectAll('path').data(this.edges, (d) => d.edgeId);
     // Remove old edges
     edge.exit().remove();
 
     // Update old edges
     edge
       .attr('d', (d: Edge) => {
-        const deltaX = this.xScale(d.endNodeObject.position.x) - this.xScale(d.startNodeObject.position.x);
-        const deltaY = this.yScale(d.endNodeObject.position.y) - this.yScale(d.startNodeObject.position.y);
+        const deltaX = this.xScale(d.endNodeObject.nodePosition.x) - this.xScale(d.startNodeObject.nodePosition.x);
+        const deltaY = this.yScale(d.endNodeObject.nodePosition.y) - this.yScale(d.startNodeObject.nodePosition.y);
         const dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
         const normX = deltaX / dist;
         const normY = deltaY / dist;
@@ -523,12 +523,12 @@ export class GraphMapComponent implements OnInit {
         //const targetPadding = d.right ? 17 : 12;
         const sourcePadding = 10;
         const targetPadding = 10;
-        const sourceX = this.xScale(d.startNodeObject.position.x) + (sourcePadding * normX);
-        const sourceY = this.yScale(d.startNodeObject.position.y) + (sourcePadding * normY);
-        const targetX = this.xScale(d.endNodeObject.position.x) - (targetPadding * normX);
-        const targetY = this.yScale(d.endNodeObject.position.y) - (targetPadding * normY);
-        const deltaXreal = d.endNodeObject.position.x - d.startNodeObject.position.x;
-        const deltaYreal = d.endNodeObject.position.y - d.startNodeObject.position.y;
+        const sourceX = this.xScale(d.startNodeObject.nodePosition.x) + (sourcePadding * normX);
+        const sourceY = this.yScale(d.startNodeObject.nodePosition.y) + (sourcePadding * normY);
+        const targetX = this.xScale(d.endNodeObject.nodePosition.x) - (targetPadding * normX);
+        const targetY = this.yScale(d.endNodeObject.nodePosition.y) - (targetPadding * normY);
+        const deltaXreal = d.endNodeObject.nodePosition.x - d.startNodeObject.nodePosition.x;
+        const deltaYreal = d.endNodeObject.nodePosition.y - d.startNodeObject.nodePosition.y;
         d.distance = Math.sqrt(deltaXreal * deltaXreal + deltaYreal * deltaYreal);
         return `M${sourceX},${sourceY}L${targetX},${targetY}`;
       })
@@ -545,8 +545,8 @@ export class GraphMapComponent implements OnInit {
 
     edge.enter().append('path')
       .attr('d', (d: Edge) => {
-      const deltaX = this.xScale(d.endNodeObject.position.x) - this.xScale(d.startNodeObject.position.x);
-      const deltaY = this.yScale(d.endNodeObject.position.y) - this.yScale(d.startNodeObject.position.y);
+      const deltaX = this.xScale(d.endNodeObject.nodePosition.x) - this.xScale(d.startNodeObject.nodePosition.x);
+      const deltaY = this.yScale(d.endNodeObject.nodePosition.y) - this.yScale(d.startNodeObject.nodePosition.y);
       const dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
       const normX = deltaX / dist;
       const normY = deltaY / dist;
@@ -554,12 +554,12 @@ export class GraphMapComponent implements OnInit {
       //const targetPadding = d.right ? 17 : 12;
       const sourcePadding = 12;
       const targetPadding = 12;
-      const sourceX = this.xScale(d.startNodeObject.position.x) + (sourcePadding * normX);
-      const sourceY = this.yScale(d.startNodeObject.position.y) + (sourcePadding * normY);
-      const targetX = this.xScale(d.endNodeObject.position.x) - (targetPadding * normX);
-      const targetY = this.yScale(d.endNodeObject.position.y) - (targetPadding * normY);
-      const deltaXreal = d.endNodeObject.position.x - d.startNodeObject.position.x;
-      const deltaYreal = d.endNodeObject.position.y - d.startNodeObject.position.y;
+      const sourceX = this.xScale(d.startNodeObject.nodePosition.x) + (sourcePadding * normX);
+      const sourceY = this.yScale(d.startNodeObject.nodePosition.y) + (sourcePadding * normY);
+      const targetX = this.xScale(d.endNodeObject.nodePosition.x) - (targetPadding * normX);
+      const targetY = this.yScale(d.endNodeObject.nodePosition.y) - (targetPadding * normY);
+      const deltaXreal = d.endNodeObject.nodePosition.x - d.startNodeObject.nodePosition.x;
+      const deltaYreal = d.endNodeObject.nodePosition.y - d.startNodeObject.nodePosition.y;
       d.distance = Math.sqrt(deltaXreal * deltaXreal + deltaYreal * deltaYreal);
       return `M${sourceX},${sourceY}L${targetX},${targetY}`;
     })
@@ -587,13 +587,13 @@ export class GraphMapComponent implements OnInit {
     if (source === null || target === null) return;
     if (source.routeID != target.routeID) return;
 
-    const edge = new Edge(source.nodeID, target.nodeID);
+    const edge = new Edge(source.nodeId, target.nodeId);
     
     // provisorisch
     edge.startNodeObject = source;
     edge.endNodeObject = target;
     
-    edge.edgeDescription = 's' + source.nodeID.toString() + 't' + target.nodeID.toString();
+    edge.edgeDescription = 's' + source.nodeId.toString() + 't' + target.nodeId.toString();
     if (this.edges.find((e: Edge) => {
       return e.edgeDescription == edge.edgeDescription;
     }) != null) {
@@ -603,15 +603,17 @@ export class GraphMapComponent implements OnInit {
     else {
       this.edges.push(edge);
       this.currentRoute.edges.push(edge);
-      console.log('Added edge. Source:' + source.nodeID + ' Target:' + target.nodeID);
+      console.log('Added edge. Source:' + source.nodeId + ' Target:' + target.nodeId);
       console.log(this.edges);
       this.drawEdges(event);
 
       // adjust theta of source node to point in target direction
-      let xDiff = target.position.x - source.position.x;
-      let yDiff = target.position.y - source.position.y;
+      let xDiff = target.nodePosition.x - source.nodePosition.x;
+      let yDiff = target.nodePosition.y - source.nodePosition.y;
       let theta =  Math.atan2(yDiff, xDiff);
-      source.position.theta = theta;
+      source.nodePosition.theta = theta;
+      //????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????
+      target.nodePosition.theta = source.nodePosition.theta
       this.drawCircles(event);
     }
   }
@@ -679,7 +681,7 @@ export class GraphMapComponent implements OnInit {
         if (!this.svgActive) return;
         // remove edges with node
         let edgesToRemove = this.edges.filter((e) => {
-          return (e.startNode === this.selectedNode.nodeID || e.endNode === this.selectedNode.nodeID);
+          return (e.startNodeId === this.selectedNode.nodeId || e.endNodeId === this.selectedNode.nodeId);
         });
         for (let edge of edgesToRemove) {
           this.edges.splice(this.edges.indexOf(edge), 1);
@@ -994,9 +996,9 @@ export class GraphMapComponent implements OnInit {
 
   addNodeOnFTFPosition(event, ftf: FTF) {
     const node = new Node();
-    node.position.x = ftf.x;
-    node.position.y = ftf.y;
-    node.position.theta = ftf.theta;
+    node.nodePosition.x = ftf.x;
+    node.nodePosition.y = ftf.y;
+    node.nodePosition.theta = ftf.theta;
     node.routeID = this.currentRoute.routeID;
 
     // check if route already has a start

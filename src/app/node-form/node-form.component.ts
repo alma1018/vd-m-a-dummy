@@ -27,8 +27,8 @@ export class NodeFormComponent implements OnInit {
 
   addNewAction() {
     let action = new Action();
-    action.actionID = "0";
-    action.actionName = "newAction"
+    action.actionId = "0";
+    action.actionType = "newAction"
     action.actionDescription = "Neue Aktion";
 
     const dialogConfig = new MatDialogConfig();

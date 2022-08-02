@@ -29,30 +29,30 @@ export class Route {
 
   getNodeByID(nodeID) {
     return this.nodes.filter((node) => {
-      return node.nodeID === nodeID;
+      return node.nodeId === nodeID;
     })[0];
   }
 
   getEdgeByID(edgeID) {
     return this.edges.filter((edge) => {
-      return edge.edgeID === edgeID;
+      return edge.edgeId === edgeID;
     })[0];
   }
 
   getStartNodeByEdgeID(edgeID) {
     let edge = this.getEdgeByID(edgeID);
-    let node = this.getNodeByID(edge.startNode);
+    let node = this.getNodeByID(edge.startNodeId);
     return node;
   }
 
   getEndNodeByEdgeID(edgeID) {
     let edge = this.getEdgeByID(edgeID);
-    let node = this.getNodeByID(edge.endNode);
+    let node = this.getNodeByID(edge.endNodeId);
     return node;
   }
 
   getEdgeByStartNodeID(nodeID) {
-    return this.edges.find((e: Edge) => { return e.startNode === nodeID});
+    return this.edges.find((e: Edge) => { return e.startNodeId === nodeID});
   }
 
   setFtfBaseTopic(ftf: FTF) {
@@ -68,16 +68,16 @@ export class Route {
     let sortedNodeList = [];
     let sortedEdgeList = [];
     let startNode = this.nodes.find((n: Node) => {return n.start;});
-    let startEdge = this.edges.find((e: Edge) => {return e.startNode === startNode.nodeID});
+    let startEdge = this.edges.find((e: Edge) => {return e.startNodeId === startNode.nodeId});
     sortedNodeList.push(startNode);
     sortedEdgeList.push(startEdge);
-    let nextNode = this.getEndNodeByEdgeID(startEdge.edgeID);
+    let nextNode = this.getEndNodeByEdgeID(startEdge.edgeId);
     let endNodeFound = false;
     sortedNodeList.push(nextNode);
     endNodeFound = nextNode.end;
     while (!endNodeFound) {
-      let nextEdge = this.getEdgeByStartNodeID(nextNode.nodeID);
-      nextNode = this.getEndNodeByEdgeID(nextEdge.edgeID);
+      let nextEdge = this.getEdgeByStartNodeID(nextNode.nodeId);
+      nextNode = this.getEndNodeByEdgeID(nextEdge.edgeId);
       if ((nextNode === undefined) || (nextEdge === undefined)) {
         return false;
       }

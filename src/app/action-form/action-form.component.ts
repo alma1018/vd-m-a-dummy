@@ -1,35 +1,45 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { HammerModule } from '@angular/platform-browser';
 import {Action} from "../vdma_classes/Action";
+import {ActionParameter} from "../vdma_classes/Action";
+import { BlockingType } from '../vdma_classes/Action';
+
+let UP_Action = new ActionParameter;
+UP_Action.key === "direction";
+UP_Action.value === "up";
+
+let DOWN_Action = new ActionParameter;
+UP_Action.key === "direction";
+UP_Action.value === "down";
+
+let DOOR_Action = new ActionParameter;
+UP_Action.key === "unlockClient";
+UP_Action.value === "door_1";
+
 
 @Component({
   selector: 'app-action-form',
   templateUrl: './action-form.component.html',
   styleUrls: ['./action-form.component.css']
 })
+
 export class ActionFormComponent implements OnInit {
   static globalActionList: Action[] = [
-    {actionID: "blink0", actionName: "blink", actionDescription: "Grün blinken"},
-    {actionID: "lift1", actionName: "lift", actionDescription: "Hub heben", actionParameter: JSON.stringify({
-      direction: "up"
-    })},
-    {actionID: "lift2", actionName: "lift", actionDescription: "Hub senken", actionParameter: JSON.stringify({
-      direction: "down"
-    })},
-    {actionID: "wait3", actionName: "wait", actionDescription: "Auf Türfreigabe warten", actionParameter: JSON.stringify({
-        blockingType: "hard",
-        unlockClient: "door_1"
-      })},
-    {actionID: "pick4", actionName: "pick", actionDescription: "KLT aufnehmen", actionParameter: JSON.stringify({
-        blockingType: "hard"
-      })},
-    {actionID: "drop5", actionName: "drop", actionDescription: "KLT abliefern", actionParameter: JSON.stringify({
-        blockingType: "hard"
-      })}];
+    {actionId: "blink0", actionType: "blink", actionDescription: "Grün blinken"},
+    {actionId: "lift1", actionType: "lift", actionDescription: "Hub heben", actionParameters: [UP_Action]
+    },
+    {actionId: "lift2", actionType: "lift", actionDescription: "Hub senken", actionParameters: [DOWN_Action]
+    },
+    {actionId: "wait3", actionType: "wait", actionDescription: "Auf Türfreigabe warten", actionParameters: [DOOR_Action],
+     blockingType: BlockingType.Hard
+    },
+    {actionId: "pick4", actionType: "pick", actionDescription: "KLT aufnehmen", blockingType: BlockingType.Hard},
+    {actionId: "drop5", actionType: "drop", actionDescription: "KLT abliefern", blockingType: BlockingType.Hard}];
   globalActionListMirror: Action[] = [];
-  blockingTypes = Action.blockingTypes;
-  triggerPointTypes = Action.triggerPointTypes;
-  durationTypes = Action.durationTypes;
+  blockingTypes = BlockingType;
+  //triggerPointTypes = Action.triggerPointTypes;
+  //durationTypes = Action.durationTypes;
 
 
   constructor(public dialogRef: MatDialogRef<ActionFormComponent>,
@@ -39,12 +49,12 @@ export class ActionFormComponent implements OnInit {
 
   ngOnInit() {
     this.globalActionListMirror = this.getGlobalActionList();
-    console.log(this.triggerPointTypes);
+    //console.log(this.triggerPointTypes);
   }
 
   addActionToGlobalActionList(action: Action) {
     if (ActionFormComponent.globalActionList.some(actionInList =>  {
-      return actionInList.actionID === action.actionID;
+      return actionInList.actionId === action.actionId;
     })) return;
     let actionCopy = Object.assign({}, action);
     ActionFormComponent.globalActionList.push(actionCopy);

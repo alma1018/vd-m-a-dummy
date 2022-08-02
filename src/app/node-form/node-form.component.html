@@ -2,7 +2,7 @@
   <mat-card>
 
       <mat-form-field>
-          <input matInput placeholder="nodeID" [(ngModel)]="node.nodeID" value="{{node.nodeID}}">
+          <input matInput placeholder="nodeID" [(ngModel)]="node.nodeId" value="{{node.nodeId}}">
         </mat-form-field>
 
     <mat-form-field>
@@ -10,17 +10,17 @@
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="number" placeholder="X Koordinate in Meter" [(ngModel)]="node.position.x" value="{{node.position.x}}">
+      <input matInput type="number" placeholder="X Koordinate in Meter" [(ngModel)]="node.nodePosition.x" value="{{node.nodePosition.x}}">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="number" placeholder="Y Koordinate in Meter" [(ngModel)]="node.position.y" value="{{node.position.y}}">
+      <input matInput type="number" placeholder="Y Koordinate in Meter" [(ngModel)]="node.nodePosition.y" value="{{node.nodePosition.y}}">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput type="number" placeholder="Theta im Bogenmaß" [(ngModel)]="node.position.theta" value="{{node.position.theta}}">
+      <input matInput type="number" placeholder="Theta im Bogenmaß" [(ngModel)]="node.nodePosition.theta" value="{{node.nodePosition.theta}}">
     </mat-form-field>
-    <div [style.transform]="rotateArrow(node.position.theta)"><mat-icon>arrow_right_alt</mat-icon></div>
+    <div [style.transform]="rotateArrow(node.nodePosition.theta)"><mat-icon>arrow_right_alt</mat-icon></div>
     
       <mat-checkbox [(ngModel)]="node.released">Released</mat-checkbox>
       <mat-checkbox [(ngModel)]="node.replaceBase">Replace Base</mat-checkbox>

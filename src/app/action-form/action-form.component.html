@@ -1,20 +1,20 @@
-<div mat-dialog-title>{{action.actionID}} - {{action.actionDescription}}</div>
+<div mat-dialog-title>{{action.actionId}} - {{action.actionDescription}}</div>
 <div mat-dialog-content>
   <div id="formContainer">
     <mat-form-field *ngIf="globalActionListMirror.length>0">
       <mat-select placeholder="Gespeicherte Aktionen..." (selectionChange)="newSelection(actionPicker.value)" #actionPicker>
         <mat-option *ngFor="let predefinedAction of globalActionListMirror" [value]="predefinedAction">
-          {{predefinedAction.actionID}} - {{predefinedAction.actionDescription}}
+          {{predefinedAction.actionId}} - {{predefinedAction.actionDescription}}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Aktions-ID"  [(ngModel)]="action.actionID">
+      <input matInput placeholder="Aktions-ID"  [(ngModel)]="action.actionId">
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Aktionsname"  [(ngModel)]="action.actionName">
+      <input matInput placeholder="Aktionstyp"  [(ngModel)]="action.actionType">
     </mat-form-field>
 
     <mat-form-field>
@@ -24,7 +24,7 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-
+<!--
     <mat-form-field>
         <mat-select placeholder="Art des Triggers" [(ngModel)]="action.triggerPointType">
           <mat-option *ngFor="let triggerPointType of triggerPointTypes" [value]="triggerPointType">
@@ -32,11 +32,11 @@
           </mat-option>
         </mat-select>
     </mat-form-field>
-
+  
     <mat-form-field>
         <input matInput type="number" placeholder="{{(action.triggerPointType=='time') ? 'Triggerzeitpunkt (s)' : 'Triggerabstand (m)'}}" [(ngModel)]="action.triggerPointValue">
     </mat-form-field>
-    
+   
     <mat-form-field>
         <mat-select placeholder="Art der Dauer" [(ngModel)]="action.durationType">
           <mat-option *ngFor="let durationType of durationTypes" [value]="durationType">
@@ -48,9 +48,9 @@
     <mat-form-field>
         <input matInput type="number" placeholder="{{(action.durationType=='time') ? 'Dauer (s)' : 'Dauer (m)'}}" [(ngModel)]="action.durationValue">
     </mat-form-field>
-
+--> 
     <mat-form-field>
-      <input matInput placeholder="Aktionsparameter als JSON" [(ngModel)]="action.actionParameter">
+      <input matInput placeholder="Aktionsparameter als JSON" [(ngModel)]="action.actionParameters">
     </mat-form-field>
   </div>
 </div>
