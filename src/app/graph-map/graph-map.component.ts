@@ -74,7 +74,7 @@ export class GraphMapComponent implements OnInit {
   // MapStuff
   mapWidthInPixels=642;
   mapHeightInPixels=665;
-  map_origin = [-21.3, -10.2];
+  map_origin = [0.0, 0.0];//[-21.3, -10.2];
   mapWidthInMeters = 32.1;
   mapHeightInMeters = 33.25;
   mapMetersPerPixel = 0.05;
