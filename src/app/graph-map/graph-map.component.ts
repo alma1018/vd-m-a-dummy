@@ -65,7 +65,7 @@ export class GraphMapComponent implements OnInit {
   // MQTT Client
   mqtt: Paho.Client;
   mqttHost = '127.0.0.1';
-  mqttPort = 1884;
+  mqttPort = 9001;
   mqttClientID = 'VDMA_FTF_PROTO_WEBAPP_' + Math.random().toString(36).substr(2,6);
   mqttConnected = false;
   mqttManuallyDisconnected = false;
@@ -75,16 +75,16 @@ export class GraphMapComponent implements OnInit {
   mapWidthInPixels=642;
   mapHeightInPixels=665;
   map_origin = [-21.3, -10.2];
-  mapWidthInMeters = 32,1;
-  mapHeightInMeters = 33,25;
+  mapWidthInMeters = 32.1;
+  mapHeightInMeters = 33.25;
   mapMetersPerPixel = 0.05;
   mapAvailableWidth: number;
   mapAvailableHeight: number;
   mapSizingFactor: number;
   mapDisplayWidth: number;
   mapDisplayHeight: number;
-  mapXoffset = -4.9583;
-  mapYoffset = 0.9792;
+  mapXoffset = 0.0;//-4.9583;
+  mapYoffset = 0.0;//0.9792;
   xScale = d3.scaleLinear()
     .domain([this.map_origin[0], -this.map_origin[0] ])
     .range([0,this.mapWidthInPixels]);
