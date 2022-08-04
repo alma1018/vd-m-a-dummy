@@ -83,8 +83,8 @@ export class GraphMapComponent implements OnInit {
   mapSizingFactor: number;
   mapDisplayWidth: number;
   mapDisplayHeight: number;
-  mapXoffset = 0.0;//-4.9583;
-  mapYoffset = 0.0;//0.9792;
+  mapXoffset = 5.1199;//-4.9583;
+  mapYoffset = 4.959;//0.9792;
   xScale = d3.scaleLinear()
     .domain([this.map_origin[0], -this.map_origin[0] ])
     .range([0,this.mapWidthInPixels]);
