@@ -9,10 +9,10 @@
          [(ngModel)]="data.mapMetersPerPixel" (change)="setMapChangedFlag()"/>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="x-Offset von Kartenmitte" type="number" id="mapXoffset" [(ngModel)]="data.mapXoffset" (change)="setMapChangedFlag()" />
+      <input matInput placeholder="x-Koordinate des Kartenurprungs" type="number" id="mapXoffset" [(ngModel)]="data.mapXoffset" (change)="setMapChangedFlag()" />
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="y-Offset von Kartenmitte" type="number" id="mapYoffset" [(ngModel)]="data.mapYoffset" (change)="setMapChangedFlag()" />
+      <input matInput placeholder="y-Koordinate des Kartenurprungs" type="number" id="mapYoffset" [(ngModel)]="data.mapYoffset" (change)="setMapChangedFlag()" />
     </mat-form-field>
     <h4>MQTT</h4>
     <mat-form-field>

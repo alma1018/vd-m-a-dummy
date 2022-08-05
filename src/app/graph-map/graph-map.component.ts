@@ -72,19 +72,19 @@ export class GraphMapComponent implements OnInit {
 
 
   // MapStuff
-  mapWidthInPixels=642;
-  mapHeightInPixels=665;
-  map_origin = [-21.3, -10.2];//[0.0, 0.0];
-  mapWidthInMeters = 32.1;
-  mapHeightInMeters = 33.25;
-  mapMetersPerPixel = 0.05;
+  mapWidthInPixels=642;           //get from map pixel width
+  mapHeightInPixels=665;          //get from map pixel height
+  map_origin = [0.0, 0.0];        //[0.0, 0.0];
+  mapWidthInMeters = 0.0;         //Intitalvalue will be calculated
+  mapHeightInMeters = 0.0;        //Intitalvalue will be calculated
+  mapMetersPerPixel = 0.05;       // get from map yaml file (resolution)
   mapAvailableWidth: number;
   mapAvailableHeight: number;
   mapSizingFactor: number;
   mapDisplayWidth: number;
   mapDisplayHeight: number;
-  mapXoffset = 5.1199;//-4.9583;
-  mapYoffset = 4.959;//0.9792;
+  mapXoffset = 0.0;               // will be calculated from input in settings
+  mapYoffset = 0.0;               //will be calculated from input in settings
   xScale = d3.scaleLinear()
     .domain([this.map_origin[0], -this.map_origin[0] ])
     .range([0,this.mapWidthInPixels]);
@@ -773,8 +773,8 @@ export class GraphMapComponent implements OnInit {
       if (result){
         console.log('saved');
         this.mapMetersPerPixel = result.mapMetersPerPixel;
-        this.mapXoffset = result.mapXoffset;
-        this.mapYoffset = result.mapYoffset;
+        this.mapXoffset = result.mapXoffset+this.mapWidthInMeters*0.5;
+        this.mapYoffset = this.mapHeightInMeters*0.5+result.mapYoffset;
 
         if (result.customMap) {
           let stage = document.getElementById('stage');
