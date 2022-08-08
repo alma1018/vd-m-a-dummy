@@ -161,7 +161,7 @@ export class GraphMapComponent implements OnInit {
       .range([0,this.mapDisplayHeight]);
 
     console.log('Kartenmaße: ' + this.mapWidthInPixels + 'x' + this.mapHeightInPixels + ' (px) '
-    + this.mapWidthInMeters + 'x' + this.mapHeightInMeters + ' (m) Auflösung:' + this.mapMetersPerPixel);
+    + this.mapWidthInMeters + 'x' + this.mapHeightInMeters + ' (m) Auflösung:' + this.mapMetersPerPixel + ',Origin: '+ this.map_origin);
   }
 
   calculateMapDisplaySettings() {
