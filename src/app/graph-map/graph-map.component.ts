@@ -759,8 +759,8 @@ export class GraphMapComponent implements OnInit {
     dialogConfig.data = {
       mapChanged: false,
       mapMetersPerPixel: this.mapMetersPerPixel,
-      mapXoffset: this.mapXoffset,
-      mapYoffset: this.mapYoffset,
+      mapXoffset: this.map_origin[0],
+      mapYoffset: this.map_origin[1],
       mqttChanged: false,
       mqttHost: this.mqttHost,
       mqttPort: this.mqttPort,
@@ -773,6 +773,7 @@ export class GraphMapComponent implements OnInit {
       if (result){
         console.log('saved');
         this.mapMetersPerPixel = result.mapMetersPerPixel;
+        this.map_origin = [result.mapXoffset,result.mapYoffset];
         this.mapXoffset = result.mapXoffset+this.mapWidthInMeters*0.5;
         this.mapYoffset = this.mapHeightInMeters*0.5+result.mapYoffset;
 
