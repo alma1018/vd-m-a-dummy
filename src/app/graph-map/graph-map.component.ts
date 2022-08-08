@@ -77,7 +77,7 @@ export class GraphMapComponent implements OnInit {
   map_origin = [0.0, 0.0];        //[0.0, 0.0];
   mapWidthInMeters = 0.0;         //Intitalvalue will be calculated
   mapHeightInMeters = 0.0;        //Intitalvalue will be calculated
-  mapMetersPerPixel = 0.05;       // get from map yaml file (resolution)
+  mapMetersPerPixel = 0.0;       // get from map yaml file (resolution)
   mapAvailableWidth: number;
   mapAvailableHeight: number;
   mapSizingFactor: number;
@@ -721,13 +721,6 @@ export class GraphMapComponent implements OnInit {
   onMQTTError(error) {
     this.mqttConnected = this.mqtt.isConnected();
     console.log('MQTT ERROR:');
-    console.log(error);
-    this.snackBar.open('MQTT Fehler: ' + error.errorMessage, null, {duration: 2000});
-  }
-
-  onMQTTConnectionLost(info) {
-    console.log('MQTT CONNECTION LOST!');
-    console.log(info);
     this.mqttConnected = false;
     this.snackBar.open('MQTT getrennt!', null, {duration: 2000});
   }
