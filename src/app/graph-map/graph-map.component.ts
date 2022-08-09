@@ -826,15 +826,15 @@ export class GraphMapComponent implements OnInit {
   initFTF() {
     if (!this.loadFTFs()) {
       let ftf = new FTF();
-      ftf.manufacturer = 'KIT';
-      ftf.fleet = 'KARIS';
-      ftf.name = '0001';
+      ftf.manufacturer = 'Neobotix';
+      ftf.fleet = 'LTC';
+      ftf.name = 'MMO_500';
       ftf.x = 0;
       ftf.y = 0;
       ftf.theta = 0;
       ftf.batteryStatus = 0.1;
 
-      this.mqtt.subscribe(ftf.getBaseTopic() + '/#');
+      this.mqtt.subscribe(ftf.getBaseTopic() + '/state');
 
       this.ftfs.push(ftf);
     }
