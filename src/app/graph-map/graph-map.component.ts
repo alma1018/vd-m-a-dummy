@@ -733,17 +733,18 @@ export class GraphMapComponent implements OnInit {
   }
 
   onMQTTMessage(message) {
-    if (message.destinationName == 'hello') {
-      this.snackBar.open('MQTT Message: ' + message.payloadString, null, {duration: 2000});
-    }
-    else {
+    // if (message.destinationName == 'hello') {
+    //   this.snackBar.open('MQTT Message: ' + message.payloadString, null, {duration: 10000});
+    // }
+    // else {
+      this.snackBar.open('MQTT Message: ' + message.payloadString, null, {duration: 10000});
       try {
         this.updateFTFs(message);
       }
       catch (error) {
         console.log(error)
       }
-    }
+    // }
   }
 
   onMQTTDisconnect() {
