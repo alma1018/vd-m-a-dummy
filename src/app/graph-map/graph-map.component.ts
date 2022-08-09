@@ -834,7 +834,7 @@ export class GraphMapComponent implements OnInit {
       ftf.theta = 0;
       ftf.batteryStatus = 0.1;
 
-      this.mqtt.subscribe(ftf.getBaseTopic() + '/state');
+      this.mqtt.subscribe(ftf.getBaseTopic() + '/#');
 
       this.ftfs.push(ftf);
     }
