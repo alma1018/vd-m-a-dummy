@@ -737,7 +737,7 @@ export class GraphMapComponent implements OnInit {
     //   this.snackBar.open('MQTT Message: ' + message.payloadString, null, {duration: 10000});
     // }
     // else {
-      this.snackBar.open('MQTT Message: ' + message.payloadString, null, {duration: 10000});
+      this.snackBar.open('MQTT Message: ' + message.payloadString, null, {duration: 5000});
       try {
         this.updateFTFs(message);
       }
