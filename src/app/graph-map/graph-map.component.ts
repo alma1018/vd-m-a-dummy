@@ -72,8 +72,8 @@ export class GraphMapComponent implements OnInit {
 
 
   // MapStuff
-  mapWidthInPixels=642;           //get from map pixel width
-  mapHeightInPixels=665;          //get from map pixel height
+  mapWidthInPixels=1664;           //get from map pixel width
+  mapHeightInPixels=2112;          //get from map pixel height
   map_origin = [0.0, 0.0];        //[0.0, 0.0];
   mapWidthInMeters = 0.0;         //Intitalvalue will be calculated
   mapHeightInMeters = 0.0;        //Intitalvalue will be calculated
