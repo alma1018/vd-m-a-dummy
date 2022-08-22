@@ -775,8 +775,10 @@ export class GraphMapComponent implements OnInit {
         console.log('saved');
         this.mapMetersPerPixel = result.mapMetersPerPixel;
         this.map_origin = [result.mapXoffset,result.mapYoffset];
-        this.mapXoffset = result.mapXoffset+this.mapWidthInMeters*0.5;
-        this.mapYoffset = this.mapHeightInMeters*0.5+result.mapYoffset;
+        this.mapXoffset = result.mapXoffset-this.mapWidthInMeters*0.5;
+        this.mapYoffset = -this.mapHeightInMeters*0.5+result.mapYoffset;
+        // this.mapXoffset = result.mapXoffset+this.mapWidthInMeters*0.5;
+        // this.mapYoffset = this.mapHeightInMeters*0.5+result.mapYoffset;
 
         if (result.customMap) {
           let stage = document.getElementById('stage');
